@@ -1,4 +1,4 @@
-pageextension 81501 "SMT Sales Order" extends "Sales Order" //42
+pageextension 62000 "Esanpons Sales Order" extends "Sales Order"
 {
 
     layout
