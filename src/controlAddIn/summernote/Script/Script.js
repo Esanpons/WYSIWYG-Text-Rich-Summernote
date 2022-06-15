@@ -1,76 +1,88 @@
-function InitializeControl(controlId) {
-    var controlAddIn = document.getElementById(controlId);
+function AddNewSummerNote(Data, IsAirMode) {
+    var controlAddIn = document.getElementById('controlAddIn');
     controlAddIn.innerHTML = '<textarea class="summernote" id="summernote"></textarea>';
+    CreateSummerNote(Data, IsAirMode);
 }
 
-function InitializeSummerNote(Data) {
+
+function CreateSummerNote(Data, IsAirMode) {
     //Initialize editor only once when DOM is loaded
-    $(document).ready(function() {
+    $(document).ready(function () {
         editor = $('#summernote');
-        
+
         editor.summernote({
             height: ($(window).height() - 55),
             focus: true,
+            lang: 'es-ES',
+            airMode: IsAirMode,
+            //Esto permitirá tabular a través de los campos en Formularios.
+            tabDisable: true,
             callbacks: {
                 //Bind onChange callback with our OnChange BC event
-                onChange: function(contents, $editable) {
+                onChange: function (contents, $editable) {
                     Microsoft.Dynamics.NAV.InvokeExtensibilityMethod("OnChange", [contents]);
                 }
             },
-            //List of features to include them to toolbar
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['codeview', 'help']],
+            //esto es la configuracion de la barra cuando esta el air actvado
+
+            popover: {
+                air: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['Misc', ['undo', 'redo']],
+                    ['para', ['ul', 'ol', 'paragraph', 'height']],
+                    ['insert', ['picture', 'link', 'video', 'table', 'hr']],
+                    ['view', ['codeview', 'help']]
                 ]
+            },
+
+            //esto es la configuracion de la bara cuando no esta el air activado
+            toolbar: [
+
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['Misc', ['undo', 'redo']],
+                ['para', ['ul', 'ol', 'paragraph', 'height']],
+                ['insert', ['picture', 'link', 'video', 'table', 'hr']],
+                ['view', ['codeview', 'help']]
+
+            ]
         });
-     
+
         //Set init data
         $('.note-editable').html(Data);
     });
 }
 
+//recuperamos los datos
 function GetData(Data) {
     Data = $('#summernote').summernote('code');
 }
 
+//añadimos nuevamente los datos insertados
 function SetData(Data) {
     $('#summernote').summernote('code', Data);
 }
 
-function getALMethod(name, SKIP_IF_BUSY) {
-    const nav = Microsoft.Dynamics.NAV.GetEnvironment();
-
-    return (...args) => {
-        let result;
-
-        window["OnInvokeResult"] = function (alResult) {
-            result = alResult;
-        }
-
-        return new Promise(resolve => {
-            if (SKIP_IF_BUSY && nav.Busy) {
-                resolve(SKIP_IF_BUSY);
-                return;
-            }
-
-            Microsoft.Dynamics.NAV.InvokeExtensibilityMethod(name, args, false, () => {
-                delete window.OnInvokeResult;
-                resolve(result);
-            });
-        });
-    }
-}
-
+//pone no editable el area
 function Disable() {
     $('#summernote').summernote('disable');
 }
 
+//pone editable el area
 function Enable() {
     $('#summernote').summernote('enable');
+}
+
+//funcion para añadir notas debajo del cuadrado de edicion
+function Enable(Data) {
+    $('.note-status-output').html(
+        Data
+    );
 }

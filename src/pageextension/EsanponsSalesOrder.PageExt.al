@@ -11,7 +11,7 @@ pageextension 62000 "Esanpons Sales Order" extends "Sales Order"
                 trigger ControlAddinReady()
                 begin
                     NewData := Rec.GetWorkDescription();
-                    CurrPage.Summernote.InitializeSummerNote(NewData);
+                    CurrPage.Summernote.AddNewSummerNote(NewData, false);
 
                 end;
 
@@ -29,7 +29,7 @@ pageextension 62000 "Esanpons Sales Order" extends "Sales Order"
 
         NewData := '';
         NewData := Rec.GetWorkDescription();
-        CurrPage.Summernote.InitializeSummerNote(NewData);
+        CurrPage.Summernote.SetData(NewData);
         if CurrPage.Editable then
             CurrPage.Summernote.Enable()
         else
