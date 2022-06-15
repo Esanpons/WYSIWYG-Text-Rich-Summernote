@@ -1,6 +1,14 @@
+var controlAddIn;
+var GlobalNum;
+
+function InitHtml() {
+    controlAddIn = document.getElementById('controlAddIn');
+    controlAddIn.innerHTML = '';
+}
+
 function AddNewSummerNote(Data, IsAirMode) {
-    var controlAddIn = document.getElementById('controlAddIn');
-    controlAddIn.innerHTML = '<textarea class="summernote" id="summernote"></textarea>';
+    GlobalNum = 1;
+    controlAddIn.innerHTML += '<textarea class="summernote" id="summernote' + GlobalNum + '"></textarea>';
     CreateSummerNote(Data, IsAirMode);
 }
 
@@ -8,7 +16,7 @@ function AddNewSummerNote(Data, IsAirMode) {
 function CreateSummerNote(Data, IsAirMode) {
     //Initialize editor only once when DOM is loaded
     $(document).ready(function () {
-        editor = $('#summernote');
+        editor = $('#summernote' + GlobalNum);
 
         editor.summernote({
             height: ($(window).height() - 55),
@@ -62,22 +70,22 @@ function CreateSummerNote(Data, IsAirMode) {
 
 //recuperamos los datos
 function GetData(Data) {
-    Data = $('#summernote').summernote('code');
+    Data = $('#summernote' + GlobalNum).summernote('code');
 }
 
 //añadimos nuevamente los datos insertados
 function SetData(Data) {
-    $('#summernote').summernote('code', Data);
+    $('#summernote' + GlobalNum).summernote('code', Data);
 }
 
 //pone no editable el area
 function Disable() {
-    $('#summernote').summernote('disable');
+    $('#summernote' + GlobalNum).summernote('disable');
 }
 
 //pone editable el area
 function Enable() {
-    $('#summernote').summernote('enable');
+    $('#summernote' + GlobalNum).summernote('enable');
 }
 
 //funcion para añadir notas debajo del cuadrado de edicion
