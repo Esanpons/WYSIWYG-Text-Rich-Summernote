@@ -14,17 +14,18 @@ pageextension 62000 "Esanpons Sales Order" extends "Sales Order"
                     trigger ControlAddInReady()
                     begin
                         NewData := Rec.GetWorkDescription();
-                        CurrPage.SummernoteComments.InitHtmlComments();
-                        CurrPage.SummernoteComments.AddNewSummerNoteComments(NewData);
+                        CurrPage.SummernoteComments.InitHtmlComments(CreateJson());
+                        CurrPage.SummernoteComments.AddNewSummerNoteComments(NewData + '1', 1);
+                        CurrPage.SummernoteComments.AddNewSummerNoteComments(NewData + '2', 2);
                         CurrPage.SummernoteComments.FinishHtmlComments();
                     end;
 
-                    trigger OnChangeComments(Data: Text)
+                    trigger OnChangeComments(Data: Text; EntryNo: Integer)
                     begin
                         Rec.SetWorkDescription(Data);
                     end;
 
-                    trigger Mention(UserMention: JsonObject)
+                    trigger MentionComments(UserMention: JsonObject; EntryNo: Integer)
                     var
                         JToken: JsonToken;
                         JValue: JsonValue;
@@ -59,7 +60,7 @@ pageextension 62000 "Esanpons Sales Order" extends "Sales Order"
                         Rec.SetWorkDescription(NewData);
                     end;
 
-                    trigger Mention(UserMention: JsonObject)
+                    trigger MentionDescription(UserMention: JsonObject)
                     var
                         JToken: JsonToken;
                         JValue: JsonValue;
@@ -71,7 +72,6 @@ pageextension 62000 "Esanpons Sales Order" extends "Sales Order"
                 }
             }
 
-
         }
     }
 
@@ -80,11 +80,13 @@ pageextension 62000 "Esanpons Sales Order" extends "Sales Order"
 
         NewData := '';
         NewData := Rec.GetWorkDescription();
-        CurrPage.SummernoteDescription.SetDataDescription(NewData);
-        if CurrPage.Editable then
-            CurrPage.SummernoteDescription.EnableDescription()
-        else
-            CurrPage.SummernoteDescription.DisableDescription();
+        /*
+                CurrPage.SummernoteDescription.SetDataDescription(NewData);
+                if CurrPage.Editable then
+                    CurrPage.SummernoteDescription.EnableDescription()
+                else
+                    CurrPage.SummernoteDescription.DisableDescription();
+        */
     end;
 
     local procedure CreateJson() ReturnArrayJson: JsonArray

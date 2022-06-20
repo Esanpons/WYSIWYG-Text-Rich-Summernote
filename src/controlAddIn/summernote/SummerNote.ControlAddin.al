@@ -15,7 +15,8 @@ controladdin "SummerNote"
 
     StyleSheets =
          'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css', //https://www.bootstrapcdn.com/
-         'https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.css'; //https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/
+         'https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.css', //https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/
+          'src/controlAddIn/summernote/css/Style.css';
 
     StartupScript =
         'src/controlAddIn/summernote/script/Startup.js';
@@ -28,7 +29,7 @@ controladdin "SummerNote"
 
     event ControlAddInReady();
 
-    event Mention(UserMention: JsonObject);
+
 
     //funciones y eventos para la parte del Description
     procedure AddNewSummerNoteDescription(Data: Text; JsonMention: JsonArray);
@@ -38,12 +39,14 @@ controladdin "SummerNote"
     procedure GetDataDescription(Data: Text);
     procedure SetDataDescription(Data: Text);
     event OnChangeDescription(Data: Text);
+    event MentionDescription(UserMention: JsonObject);
 
 
     //funciones y eventos para la parte de Comments
-    procedure InitHtmlComments();
-    procedure AddNewSummerNoteComments(Data: Text);
+    procedure InitHtmlComments(JsonMention: JsonArray);
+    procedure AddNewSummerNoteComments(Data: Text; EntryNo: Integer);
     procedure FinishHtmlComments();
-    event OnChangeComments(Data: Text);
+    event OnChangeComments(Data: Text; EntryNo: Integer);
+    event MentionComments(UserMention: JsonObject; EntryNo: Integer);
 
 }

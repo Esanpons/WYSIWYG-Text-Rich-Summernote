@@ -5,6 +5,7 @@ function AddNewSummerNoteDescription(Data, JsonMention) {
 }
 
 function CreateSummerNoteDescription(Data, JsonMention) {
+
     //Initialize editor only once when DOM is loaded
     $(document).ready(function () {
         $('.summernote').summernote(
@@ -32,7 +33,7 @@ function CreateSummerNoteDescription(Data, JsonMention) {
                         return item.name;
                     },
                     content: function (item) {
-                        Microsoft.Dynamics.NAV.InvokeExtensibilityMethod("Mention", [item]);
+                        Microsoft.Dynamics.NAV.InvokeExtensibilityMethod("MentionDescription", [item]);
                         return $('<a>')
                             .attr('href', item.code)
                             .text('@' + item.name)
