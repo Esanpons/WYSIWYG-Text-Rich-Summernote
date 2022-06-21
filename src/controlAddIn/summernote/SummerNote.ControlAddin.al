@@ -44,9 +44,9 @@ controladdin "SummerNote"
 
     //funciones y eventos para la parte de Comments
     procedure InitHtmlComments(JsonMention: JsonArray);
-    procedure AddNewSummerNoteComments(Data: Text; EntryNo: Integer);
+    procedure AddNewSummerNoteComments(Data: Text; EntryNo: Integer; OrderNo: Code[20]);
     procedure FinishHtmlComments();
-    event OnChangeComments(Data: Text; EntryNo: Integer);
+    event OnChangeComments(Data: Text; EntryNo: Integer; OrderNo: Code[20]);
     event MentionComments(UserMention: JsonObject; EntryNo: Integer);
 
 }

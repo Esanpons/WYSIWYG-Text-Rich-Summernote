@@ -9,15 +9,16 @@ function InitHtmlComments(NewJsonMention) {
     TextHtml += '<div id="global">';
 
 }
-function AddNewSummerNoteComments(Data, JsonMention, EntryNo) {
+function AddNewSummerNoteComments(Data, EntryNo, OrderNo) {
     TextHtml += '<br>';
     TextHtml += '<hr style="border:15px;">';
+    TextHtml += '<DIV align="right">Nº Pedido: ' + OrderNo + '</DIV>';
     TextHtml += '   ';
     TextHtml += '<div class="summernoteText' + EntryNo + '">' + Data + '</div>';
     TextHtml += '<br>';
     TextHtml += '<button id="edit' + EntryNo + '"class="btn-primary" onclick="edit(\'' + EntryNo + '\')" type="button">Edit</button>';
     TextHtml += '   ';
-    TextHtml += '<button id="save' + EntryNo + '"class="btn-primary" onclick="save(\'' + EntryNo + '\')" type="button" style="visibility:hidden;">Save</button>';
+    TextHtml += '<button id="save' + EntryNo + '"class="btn-primary" onclick="save(\'' + EntryNo + '\',\'' + OrderNo + '\')" type="button" style="visibility:hidden;">Save</button>';
     TextHtml += '   ';
     TextHtml += '<button id="cancel' + EntryNo + '"class="btn-primary" onclick="cancel(\'' + EntryNo + '\')" type="button" style="visibility:hidden;">Cancel</button>';
 }
@@ -77,10 +78,10 @@ var edit = function (EntryNo) {
     $('.note-editable');
 };
 
-var save = function (EntryNo) {
+var save = function (EntryNo, OrderNo) {
     var txt = $('.summernoteText' + EntryNo).summernote('code');
     $('.summernoteText' + EntryNo).summernote('destroy');
-    Microsoft.Dynamics.NAV.InvokeExtensibilityMethod("OnChangeComments", [txt, EntryNo]);
+    Microsoft.Dynamics.NAV.InvokeExtensibilityMethod("OnChangeComments", [txt, EntryNo, OrderNo]);
 
     document.getElementById('save' + EntryNo).style.visibility = 'hidden';
     document.getElementById('cancel' + EntryNo).style.visibility = 'hidden';
