@@ -2,8 +2,6 @@
 
 controladdin "SummerNote"
 {
-
-
     Scripts =
         'https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.js', //https://docs.microsoft.com/en-us/aspnet/ajax/cdn/overview
         'https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.js', //https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/
@@ -21,15 +19,11 @@ controladdin "SummerNote"
     StartupScript =
         'src/controlAddIn/summernote/script/Startup.js';
 
-
-
     RequestedHeight = 300;
     MinimumHeight = 1;
     HorizontalStretch = true;
 
     event ControlAddInReady();
-
-
 
     //funciones y eventos para la parte del Description
     procedure AddNewSummerNoteDescription(Data: Text; JsonMention: JsonArray);

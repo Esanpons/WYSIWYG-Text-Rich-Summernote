@@ -55,6 +55,8 @@ pageextension 60001 "Esanpons List Sales Order" extends "Sales Order List"
         JObject.Add('name', 'Roberto Rodriguez');
         JObject.Add('code', 'rrodriguez');
 
+        ReturnArrayJson.Add(JObject);
+
         Clear(JObject);
         JObject.Add('name', 'Fernando Martin');
         JObject.Add('code', 'fmartin');
@@ -67,10 +69,6 @@ pageextension 60001 "Esanpons List Sales Order" extends "Sales Order List"
         SalesHeader: Record "Sales Header";
         i: Integer;
     begin
-        if Filters = Rec.GetFilters then
-            exit;
-
-        Filters := Rec.GetFilters;
         i := 0;
 
         CurrPage.SummernoteComments.InitHtmlComments(CreateJson());
@@ -88,10 +86,8 @@ pageextension 60001 "Esanpons List Sales Order" extends "Sales Order List"
         until SalesHeader.Next() = 0;
 
         CurrPage.SummernoteComments.FinishHtmlComments();
-
     end;
 
     var
         NewData: Text;
-        Filters: Text;
 }

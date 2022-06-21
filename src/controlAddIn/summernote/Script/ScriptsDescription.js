@@ -21,6 +21,7 @@ function CreateSummerNoteDescription(Data, JsonMention) {
                         Microsoft.Dynamics.NAV.InvokeExtensibilityMethod("OnChangeDescription", [contents]);
                     }
                 },
+
                 hint: {
                     mentions: JsonMention,
                     match: /\B@(\w*)$/,

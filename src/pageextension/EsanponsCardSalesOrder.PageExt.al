@@ -1,6 +1,5 @@
 pageextension 62000 "Esanpons Card Sales Order" extends "Sales Order"
 {
-
     layout
     {
         addafter(General)
@@ -67,6 +66,8 @@ pageextension 62000 "Esanpons Card Sales Order" extends "Sales Order"
         Clear(JObject);
         JObject.Add('name', 'Roberto Rodriguez');
         JObject.Add('code', 'rrodriguez');
+
+        ReturnArrayJson.Add(JObject);
 
         Clear(JObject);
         JObject.Add('name', 'Fernando Martin');

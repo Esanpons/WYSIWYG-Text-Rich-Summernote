@@ -1,6 +1,8 @@
 var controlAddIn;
 var TextHtml;
 var JsonMention;
+
+
 function InitHtmlComments(NewJsonMention) {
     JsonMention = NewJsonMention;
     controlAddIn = document.getElementById('controlAddIn');
